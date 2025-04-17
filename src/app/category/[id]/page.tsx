@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronLeft, ExternalLink, Loader2 } from "lucide-react";
+import { ChevronLeft, ExternalLink } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { type Category, getCategoryById } from "@/lib/github";
+import { getCategories, getCategoryById } from "@/lib/github";
 
 // 颜色映射，用于设置页面主题色
 const colorMap: Record<string, string> = {
@@ -21,33 +20,16 @@ const colorMap: Record<string, string> = {
   "bg-teal-500": "teal",
 };
 
-export default function CategoryPage({ params }: { params: { id: string } }) {
-  const [category, setCategory] = useState<Category | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+// 静态生成所有分类页面
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    id: category.id,
+  }));
+}
 
-  useEffect(() => {
-    async function fetchCategory() {
-      try {
-        setLoading(true);
-        const data = await getCategoryById(params.id);
-        setCategory(data);
-        if (!data) {
-          setError("未找到该分类");
-        } else {
-          setError(null);
-        }
-      } catch (err) {
-        console.error("获取分类数据失败:", err);
-        setError("获取数据失败，请稍后再试");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchCategory();
-  }, [params.id]);
-
+export default async function CategoryPage({ params }: { params: { id: string } }) {
+  const category = await getCategoryById(params.id);
   const themeColor = category ? colorMap[category.color] || "blue" : "blue";
 
   return (
@@ -62,28 +44,17 @@ export default function CategoryPage({ params }: { params: { id: string } }) {
           </Link>
         </div>
 
-        {loading && (
-          <div className="flex justify-center items-center py-20">
-            <div className="flex flex-col items-center">
-              <Loader2 className="h-10 w-10 animate-spin text-primary" />
-              <p className="mt-4 text-muted-foreground">正在加载分类数据...</p>
-            </div>
-          </div>
-        )}
-
-        {error && !loading && (
+        {!category ? (
           <div className="flex justify-center items-center py-20">
             <div className="text-center">
-              <p className="text-red-500">{error}</p>
+              <p className="text-red-500">未找到该分类</p>
               <p className="mt-2 text-muted-foreground">请返回首页查看其他分类</p>
               <Button asChild className="mt-4">
                 <Link href="/">返回首页</Link>
               </Button>
             </div>
           </div>
-        )}
-
-        {category && !loading && !error && (
+        ) : (
           <>
             <div className={`mb-8 p-6 rounded-lg bg-${themeColor}-50 dark:bg-${themeColor}-950 border border-${themeColor}-200 dark:border-${themeColor}-800`}>
               <h1 className={`text-3xl font-bold text-${themeColor}-600 dark:text-${themeColor}-400 mb-2`}>{category.title}</h1>
