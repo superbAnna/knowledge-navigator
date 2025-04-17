@@ -1,42 +1,52 @@
-"use client";
-
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import React, { useState } from 'react';
+import { getCategories } from '@/lib/github';
 
 export function SearchBar() {
-  return (
-    <div className="relative w-full max-w-3xl mx-auto mt-8 mb-4 px-4">
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          type="search"
-          placeholder="搜索知识..."
-          className="pl-10 h-12 rounded-full border-2 focus-visible:ring-0 focus-visible:ring-offset-0 shadow-sm transition-shadow duration-200 focus-visible:shadow-md"
-        />
-      </div>
-      <div className="flex flex-wrap gap-2 mt-6 justify-center">
-        <CategoryPill active>全部</CategoryPill>
-        <CategoryPill>编程开发</CategoryPill>
-        <CategoryPill>人工智能</CategoryPill>
-        <CategoryPill>设计资源</CategoryPill>
-        <CategoryPill>学习工具</CategoryPill>
-        <CategoryPill>生产力</CategoryPill>
-        <CategoryPill>生活方式</CategoryPill>
-      </div>
-    </div>
-  );
-}
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState<Category[]>([]);
 
-function CategoryPill({ children, active = false }: { children: React.ReactNode; active?: boolean }) {
+  const handleSearch = async () => {
+    const categories = await getCategories();
+    const results = categories.filter(category => {
+      return category.title.includes(searchTerm) || category.description.includes(searchTerm);
+    });
+    setSearchResults(results);
+  };
+
   return (
-    <button
-      className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-        active
-          ? "bg-primary text-primary-foreground hover:bg-primary/90"
-          : "bg-secondary hover:bg-secondary/80"
-      }`}
-    >
-      {children}
-    </button>
+    <div className="container px-4 py-8 md:px-6">
+      <input
+        type="text"
+        placeholder="搜索分类或描述"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="border border-gray-300 p-2 rounded-md w-full md:w-1/2"
+      />
+      <button
+        onClick={handleSearch}
+        className="ml-2 bg-blue-500 text-white p-2 rounded-md"
+      >
+        搜索
+      </button>
+      {searchResults.length > 0 && (
+        <div className="mt-4">
+          <h2 className="text-2xl font-semibold">搜索结果</h2>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {searchResults.map((category) => (
+              <div key={category.id} className="border p-4 rounded-md">
+                <h3 className="font-medium text-lg">{category.title}</h3>
+                <p className="text-sm text-muted-foreground">{category.description}</p>
+                <a
+                  href={`/category/${category.id}`}
+                  className="text-blue-500 hover:underline"
+                >
+                  查看详情
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
