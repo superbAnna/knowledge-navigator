@@ -1,7 +1,8 @@
 {
-  "name": "nextjs-shadcn",
+  "name": "knowledge-navigator",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://superbAnna.github.io/knowledge-navigator",
   "scripts": {
     "dev": "next dev -H 0.0.0.0 --turbopack",
     "build": "next build",

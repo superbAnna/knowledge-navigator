@@ -1,0 +1,212 @@
+{
+  "categories": [
+    {
+      "id": "programming",
+      "title": "编程语言",
+      "description": "包括Python、JavaScript、Java、Go等主流编程语言的学习资源和参考文档",
+      "icon": "Code",
+      "category": "技术",
+      "itemCount": 42,
+      "color": "bg-blue-500",
+      "resources": [
+        {
+          "name": "Python官方文档",
+          "url": "https://docs.python.org/zh-cn/3/",
+          "description": "Python官方中文文档，包含完整的语言规范和标准库参考"
+        },
+        {
+          "name": "JavaScript MDN",
+          "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript",
+          "description": "Mozilla开发者网络提供的JavaScript参考文档"
+        },
+        {
+          "name": "Go语言之旅",
+          "url": "https://tour.go-zh.org/welcome/1",
+          "description": "Go语言的交互式入门教程"
+        }
+      ]
+    },
+    {
+      "id": "learning",
+      "title": "学习资源",
+      "description": "优质的在线课程、教程、电子书和学习平台，帮助你系统学习各种知识",
+      "icon": "BookOpen",
+      "category": "教育",
+      "itemCount": 36,
+      "color": "bg-green-500",
+      "resources": [
+        {
+          "name": "Coursera",
+          "url": "https://www.coursera.org/",
+          "description": "全球知名在线课程平台，提供各大高校和机构的优质课程"
+        },
+        {
+          "name": "edX",
+          "url": "https://www.edx.org/",
+          "description": "由哈佛和麻省理工联合创建的在线学习平台"
+        },
+        {
+          "name": "GitHub Learning Lab",
+          "url": "https://lab.github.com/",
+          "description": "GitHub提供的交互式学习平台，教授Git和GitHub的使用"
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "title": "设计资源",
+      "description": "UI/UX设计、平面设计、字体、图标、素材等设计资源的收集",
+      "icon": "Palette",
+      "category": "创意",
+      "itemCount": 28,
+      "color": "bg-purple-500",
+      "resources": [
+        {
+          "name": "Dribbble",
+          "url": "https://dribbble.com/",
+          "description": "设计师展示作品和寻找灵感的社区"
+        },
+        {
+          "name": "Behance",
+          "url": "https://www.behance.net/",
+          "description": "Adobe旗下的创意作品展示平台"
+        },
+        {
+          "name": "Figma",
+          "url": "https://www.figma.com/",
+          "description": "流行的在线设计和原型设计工具"
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "title": "AI工具",
+      "description": "人工智能和机器学习相关的工具、框架和学习资源",
+      "icon": "Lightbulb",
+      "category": "技术",
+      "itemCount": 23,
+      "color": "bg-yellow-500",
+      "resources": [
+        {
+          "name": "TensorFlow",
+          "url": "https://www.tensorflow.org/",
+          "description": "Google开发的开源机器学习框架"
+        },
+        {
+          "name": "PyTorch",
+          "url": "https://pytorch.org/",
+          "description": "Facebook开发的开源机器学习库"
+        },
+        {
+          "name": "Hugging Face",
+          "url": "https://huggingface.co/",
+          "description": "NLP模型和数据集的开源平台"
+        }
+      ]
+    },
+    {
+      "id": "productivity",
+      "title": "效率工具",
+      "description": "提高工作和学习效率的各类应用、插件和网站工具",
+      "icon": "Briefcase",
+      "category": "生产力",
+      "itemCount": 31,
+      "color": "bg-red-500",
+      "resources": [
+        {
+          "name": "Notion",
+          "url": "https://www.notion.so/",
+          "description": "集笔记、知识库、项目管理于一体的all-in-one工具"
+        },
+        {
+          "name": "Todoist",
+          "url": "https://todoist.com/",
+          "description": "简洁高效的待办事项和任务管理工具"
+        },
+        {
+          "name": "Obsidian",
+          "url": "https://obsidian.md/",
+          "description": "基于本地Markdown文件的知识连接工具"
+        }
+      ]
+    },
+    {
+      "id": "frontier",
+      "title": "前沿技术",
+      "description": "区块链、Web3、元宇宙等新兴技术领域的资源导航",
+      "icon": "Globe",
+      "category": "技术",
+      "itemCount": 19,
+      "color": "bg-indigo-500",
+      "resources": [
+        {
+          "name": "Ethereum.org",
+          "url": "https://ethereum.org/zh/",
+          "description": "以太坊官方网站，提供区块链和智能合约相关资料"
+        },
+        {
+          "name": "Web3.js",
+          "url": "https://web3js.readthedocs.io/",
+          "description": "与以太坊区块链交互的JavaScript库"
+        },
+        {
+          "name": "Solidity",
+          "url": "https://docs.soliditylang.org/",
+          "description": "以太坊智能合约编程语言文档"
+        }
+      ]
+    },
+    {
+      "id": "lifestyle",
+      "title": "生活方式",
+      "description": "关于提升生活品质、自我提升和健康管理的资源收集",
+      "icon": "Coffee",
+      "category": "生活",
+      "itemCount": 25,
+      "color": "bg-orange-500",
+      "resources": [
+        {
+          "name": "Headspace",
+          "url": "https://www.headspace.com/",
+          "description": "冥想和正念练习应用"
+        },
+        {
+          "name": "健身环大冒险",
+          "url": "https://www.nintendo.com/games/detail/ring-fit-adventure-switch/",
+          "description": "任天堂Switch上的健身游戏"
+        },
+        {
+          "name": "Daily Stoic",
+          "url": "https://dailystoic.com/",
+          "description": "每日斯多葛哲学思考和实践指南"
+        }
+      ]
+    },
+    {
+      "id": "opensource",
+      "title": "开源项目",
+      "description": "精选的GitHub开源项目，包括各种实用工具和学习资源",
+      "icon": "Github",
+      "category": "技术",
+      "itemCount": 34,
+      "color": "bg-teal-500",
+      "resources": [
+        {
+          "name": "VS Code",
+          "url": "https://github.com/microsoft/vscode",
+          "description": "微软开发的流行代码编辑器"
+        },
+        {
+          "name": "Next.js",
+          "url": "https://github.com/vercel/next.js",
+          "description": "React框架，用于构建服务端渲染和静态网站"
+        },
+        {
+          "name": "TensorFlow",
+          "url": "https://github.com/tensorflow/tensorflow",
+          "description": "Google开发的开源机器学习框架"
+        }
+      ]
+    }
+  ]
+}
