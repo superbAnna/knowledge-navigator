@@ -1,28 +1,54 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 /**
- * GitHub数据获取服务
- * 通过GitHub API获取存储在仓库中的知识导航数据
+ * 从GitHub仓库获取分类数据
  */
+export async function getCategories(): Promise<Category[]> {
+  try {
+    // 如果有缓存，直接返回
+    if (categoriesCache) {
+      return categoriesCache;
+    }
 
-const GITHUB_USERNAME = 'superbAnna';
-const GITHUB_REPO = 'knowledge-navigator';
-const GITHUB_BRANCH = 'main';
+    // 在生产环境中从GitHub获取数据
+    if (process.env.NODE_ENV === 'production') {
+      const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/data/categories.json`;
+      const response = await fetch(url, { next: { revalidate: 3600 } }); // 1小时缓存
 
-// 类型定义
-export interface Resource {
-  name: string;
-  url: string;
-  description: string;
-}
+      if (!response.ok) {
+        throw new Error(`GitHub API错误: ${response.status}`);
+      }
 
-export interface Category {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  category: string;
-  itemCount: number;
-  color: string;
-  resources: Resource[];
+      const data: CategoriesData = await response.json();
+      categoriesCache = data.categories; // 缓存结果
+      return data.categories;
+    }
+
+    // 在开发环境中从本地获取数据
+    const response = await fetch('/data/categories.json');
+    const data: CategoriesData = await response.json();
+    categoriesCache = data.categories; // 缓存结果
+    return data.categories;
+  } catch (error) {
+    console.error('获取分类数据错误:', error);
+
+    // 静态构建时，如果fetch失败，尝试从数据文件导入
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        // 注意：这种方式仅在构建时有效，不适用于客户端运行时
+        const filePath = join(process.cwd(), 'data', 'categories.json');
+        const fileContent = readFileSync(filePath, 'utf8');
+        const data = JSON.parse(fileContent) as CategoriesData;
+        categoriesCache = data.categories;
+        return data.categories;
+      } catch (fsError) {
+        console.error('从文件系统加载数据失败:', fsError);
+      }
+    }
+
+    return [];
+  }
 }
 
 export interface CategoriesData {
